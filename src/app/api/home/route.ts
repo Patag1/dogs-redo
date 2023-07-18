@@ -10,7 +10,7 @@ export async function GET(_req: Request) {
     const apiEndpoint = process.env.DOGS_API
     let dogsApi
     if (typeof apiEndpoint === 'string') {
-      dogsApi = await axios.get(apiEndpoint).then((response) => response.data.dogs)
+      dogsApi = await axios.get(apiEndpoint).then((response) => response.data)
     }
 
     return NextResponse.json({ dogs: dogsApi }, { status: 200 })
