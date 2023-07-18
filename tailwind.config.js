@@ -9,10 +9,10 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+        'gradient-white': 'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(219,219,219,1) 100%)',
+        'gradient-black': 'linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(219,219,219,1) 100%)'
       },
+      darkMode: ['class'],
     },
   },
   plugins: [],

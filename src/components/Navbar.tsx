@@ -1,11 +1,9 @@
 'use client'
 
 import { FC, useEffect, useState } from 'react'
-import { useTheme } from 'next-themes'
 import Link from 'next/link'
-import { BiSolidDog } from 'react-icons/bi'
-import { BiMoon } from 'react-icons/bi'
-import { BiSun } from 'react-icons/bi'
+import { useTheme } from 'next-themes'
+import { BiMoon, BiSolidDog, BiSun } from 'react-icons/bi'
 
 interface NavbarProps {}
 
@@ -33,16 +31,16 @@ const Navbar: FC<NavbarProps> = ({}) => {
 
   const { systemTheme, theme, setTheme } = useTheme()
 
+  const currentTheme = theme === 'system' ? systemTheme : theme
+
   const renderCurrentTheme = () => {
     if (!mounted) return null
-
-    const currentTheme = theme === 'system' ? systemTheme : theme
 
     return currentTheme === 'dark' ? <BiSun size={15} /> : <BiMoon size={15} />
   }
 
   const themeToggle = () => {
-    setTheme(theme === 'light' ? 'dark' : 'light')
+    setTheme(currentTheme === 'dark' ? 'light' : 'dark')
   }
 
   return (
@@ -64,10 +62,9 @@ const Navbar: FC<NavbarProps> = ({}) => {
         }
       </div>
       <div
-        className="flex-grow-0 basis-0 flex justify-center items-center gap-2 cursor-pointer"
+        className="md:block hidden flex-grow-0 basis-0 cursor-pointer"
         onClick={themeToggle}
       >
-        <p className="text-sm">Theme</p>
         {renderCurrentTheme()}
       </div>
     </nav>

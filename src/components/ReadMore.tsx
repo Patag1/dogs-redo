@@ -13,7 +13,7 @@ const ReadMore: FC<ReadMoreProps> = ({ text }) => {
 
   return (
     <div>
-        <p>
+        <p className='text-neutral-700 dark:text-neutral-300'>
             {
                 more
                     ? text
