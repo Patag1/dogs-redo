@@ -1,16 +1,17 @@
 import { NextResponse } from 'next/server'
 import prisma from '@/lib/prismadb'
 import axios from 'axios'
-import selectData from '@/lib/selectData'
 
 export async function GET(_req: Request) {
   try {
     const dogsDb = await prisma.dog.findMany()
-    
+
     const apiEndpoint = process.env.DOGS_API
     let dogsApi
     if (typeof apiEndpoint === 'string') {
-      dogsApi = await axios.get(apiEndpoint).then((response) => response.data)
+      dogsApi = await axios
+        .get(apiEndpoint)
+        .then((response) => response.data)
     }
 
     return NextResponse.json({ dogs: dogsApi }, { status: 200 })

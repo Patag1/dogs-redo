@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import prisma from '@/lib/prismadb'
 import postCheck from '@/middlewares/postCheck'
+import axios from 'axios'
 
 interface IParams {
   id?: string
@@ -14,9 +15,21 @@ export async function GET(_req: Request, { params }: { params: IParams }) {
       where: { id },
     })
 
-    if (!dog?.id) {
+    const endpointApi = process.env.DOGS_API
+    let dogApi
+    if (!dog?.id && endpointApi) {
+      dogApi = await axios
+        .get(endpointApi)
+        .then(response => {response.data})
+        // .then(data => {
+        //   return data.dogs.filter(d => d.id === id)
+        // })
+    }
+
+    if (!dog?.id/* && !dogApi?.id*/) {
       return NextResponse.json({ error: 'Not found' }, { status: 404 })
     }
+
 
     return NextResponse.json({ dog }, { status: 200 })
   } catch (error) {

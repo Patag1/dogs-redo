@@ -12,7 +12,7 @@ export type postDogData = Omit<
 }
 
 export interface DogApi {
-  id: number
+  id: number | string
   image: { url: string }
   name: string
   height: { metric: string }
@@ -21,10 +21,13 @@ export interface DogApi {
   temperament: string | ''
 }
 
-export type DogApiSelect = Omit<
+export type DogApiSelect = Pick<
   DogApi,
-  'weight' | 'temperament'
+  'id' | 'name'
 > & {
+  image: string
+  height: string
   weight: string
+  lifespan: string
   temperament: string[] | ''
 }

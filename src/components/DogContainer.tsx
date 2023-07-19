@@ -15,14 +15,10 @@ const DogContainer: FC<DogContainerProps> = ({}) => {
     getAllDogs()
     last(dogs.length)
   }, [])
-  
+
   return (
-    <div className='flex flex-wrap gap-4'>
-      {
-        dogs.map((dog, i) => (
-          <DogCard dog={dog} key={i} />
-        ))
-      }
+    <div className="flex flex-wrap justify-center items-center gap-4">
+      {dogs.length && dogs.map((dog, i) => <DogCard dog={dog} key={i} />)}
     </div>
   )
 }
