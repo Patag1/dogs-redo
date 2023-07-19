@@ -5,8 +5,8 @@ import selectData from '@/lib/selectData'
 import { DogApiSelect } from '@/types'
 
 interface DogsSliceProps {
-  dogs: [] | DogApiSelect[] | Dog[]
-  dog: null | Dog
+  dogs: [] | DogApiSelect[]
+  dog: null | Dog | DogApiSelect
   getAllDogs: () => Promise<void>
   getDog: (payload: string) => Promise<void>
   postDog: (payload: Dog) => Promise<void>
@@ -17,23 +17,19 @@ const DogsSlice = create<DogsSliceProps>((set) => ({
   dogs: [],
   dog: null,
   getAllDogs: async () => {
-    await axios
-      .get('api/home')
-      .then((response) => set({ dogs: response.data }))
+    const { data } = await axios.get('api/home')
+    set({ dogs: selectData(data.dogs) })
   },
   getDog: async (payload) => {
-    await axios
-      .get(`api/home/${payload}`)
-      .then((response) => set({ dog: response.data }))
+    const { data } = await axios.get(`api/home/${payload}`)
+    set({ dog: selectData(data.dogs) })
   },
   postDog: async (payload) => {
-    await axios
-      .post('api/create', payload)
+    await axios.post('api/create', payload)
   },
   delDog: async (payload) => {
-    await axios
-      .delete(`api/home/${payload}`)
-  }
+    await axios.delete(`api/home/${payload}`)
+  },
 }))
 
 export default DogsSlice
